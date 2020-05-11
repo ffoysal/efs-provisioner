@@ -1,0 +1,28 @@
+
+configMapGenerator:
+- name: efs-provisioner-configs
+  literals:
+  - fileSystemId="efs-file-system-id"
+  - efsRegion=us-east-1
+resources:
+- cluster-role-binding.yaml
+- cluster-role.yaml
+- deployment.yaml
+- pod-security-policy.yaml
+- service-account.yaml
+- storage-class.yaml
+vars:
+- name: EFS_FILE_SYSTEM_ID
+  objref:
+    apiVersion: v1
+    kind: ConfigMap
+    name: efs-provisioner-configs
+  fieldref:
+    fieldpath: data.fileSystemId
+- name: AWS_REGION
+  objref:
+    apiVersion: v1
+    kind: ConfigMap
+    name: efs-provisioner-configs
+  fieldref:
+    fieldpath: data.efsRegion

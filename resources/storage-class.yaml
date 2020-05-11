@@ -1,0 +1,12 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+  name: aws-efs
+  labels:
+    app: efs-provisioner
+provisioner: aws-efs
+parameters:
+  gidAllocate: "true"
+  gidMin: "40000"
+  gidMax: "50000"
+reclaimPolicy: Delete

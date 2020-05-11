@@ -1,0 +1,13 @@
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: efs-provisioner
+  labels:
+    app: efs-provisioner
+subjects:
+  - kind: ServiceAccount
+    name: efs-provisioner
+roleRef:
+  kind: ClusterRole
+  name: efs-provisioner
+  apiGroup: rbac.authorization.k8s.io
