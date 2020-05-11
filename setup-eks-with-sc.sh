@@ -24,7 +24,7 @@ fi
 
 ROLE_ARN=$(eksctl get iamidentitymapping --cluster ${CLUSTER_NAME} --output yaml --region $REGION | jq -r '.[0].rolearn')
 ROLE_NAME=$(ws iam list-roles | jq  -r --arg ROLE_ARN "$ROLE_ARN" '.[] | .[] | select(.Arn==$ROLE_ARN) | .RoleName')
-echo "Role ARN: ${ROLE_NAME}"
+echo "Role ARN: ${ROLE_ARN}"
 if [ -z $ROLE_NAME ]
 then
   echo "Role Not found to create EFS"
