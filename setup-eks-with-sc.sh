@@ -50,10 +50,10 @@ do
   aws efs create-mount-target --file-system-id $EFS_ID --subnet-id $subnet --security-group $SECURITY_GROUP_ID --region $REGION
 done
 
-NODEGROUP_NAME=$(eksctl get nodegroup --cluster QLIKSENSE_HOST --region $REGION -o json | jq -r '.[]|.Name')
+NODEGROUP_NAME=$(eksctl get nodegroup --cluster $CLUSTER_NAME --region $REGION -o json | jq -r '.[]|.Name')
 
 NODEGROUP_SG=$(aws ec2 describe-security-groups --region $REGION --filters Name=tag:alpha.eksctl.io/nodegroup-name,Values=$NODEGROUP_NAME | jq -r '.SecurityGroups|.[]|.GroupId')
-CONTROL_SG=$(aws ec2 describe-security-groups --region $REGION --filters Name=tag:Name,Values=eksctl-$QLIKSENSE_HOST-cluster/ControlPlaneSecurityGroup | jq -r '.SecurityGroups|.[]|.GroupId')
+CONTROL_SG=$(aws ec2 describe-security-groups --region $REGION --filters Name=tag:Name,Values=eksctl-$CLUSTER_NAME-cluster/ControlPlaneSecurityGroup | jq -r '.SecurityGroups|.[]|.GroupId')
 
 echo "Add NFS Ingress to both $NODEGROUP_SG and $CONTROL_SG vice versa"
 aws ec2 authorize-security-group-ingress --group-id $NODEGROUP_SG --protocol tcp --port 2049 --source-group $CONTROL_SG --region $REGION
