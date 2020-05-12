@@ -28,7 +28,7 @@ spec:
         - name: AWS_REGION
           value: $(AWS_REGION)
         - name: PROVISIONER_NAME
-          value: aws-efs
+          value: aws.io/aws-efs
         volumeMounts:
         - name: pv-volume
           subPath: example-pv
