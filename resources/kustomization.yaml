@@ -1,9 +1,9 @@
-
+namespace: default
 configMapGenerator:
 - name: efs-provisioner-configs
   literals:
-  - fileSystemId="efs-file-system-id"
-  - efsRegion=us-east-1
+  - fileSystemId=fs-c7a94d0d
+  - efsRegion=eu-west-1
 resources:
 - cluster-role-binding.yaml
 - cluster-role.yaml
@@ -26,3 +26,12 @@ vars:
     name: efs-provisioner-configs
   fieldref:
     fieldpath: data.efsRegion
+- name: NAMESPACE
+  objref:
+    apiVersion: v1
+    kind: ConfigMap
+    name: efs-provisioner-configs
+  fieldref:
+    fieldpath: metadata.namespace
+configurations:
+- varreference.yaml

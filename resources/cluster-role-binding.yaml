@@ -7,6 +7,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: efs-provisioner
+    namespace: $(NAMESPACE)
 roleRef:
   kind: ClusterRole
   name: efs-provisioner
